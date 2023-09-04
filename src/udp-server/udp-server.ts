@@ -3,19 +3,25 @@ import {
   BindOptions,
   SocketOptions,
   Socket,
-  RemoteInfo
+  RemoteInfo,
 } from 'dgram';
 import { Logger } from '@nestjs/common';
-import { INCOMING_MESSAGE_EVENT, LISTENING_EVENT } from './udp-server.constants';
+import {
+  INCOMING_MESSAGE_EVENT,
+  LISTENING_EVENT,
+} from './udp-server.constants';
 import { Server, CustomTransportStrategy } from '@nestjs/microservices';
 
 export class UdpContext {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
-  constructor(private msg: Buffer, private rinfo: RemoteInfo) {}
+  constructor(
+    private msg: Buffer,
+    private rinfo: RemoteInfo,
+  ) {}
 }
 export enum SocketType {
   UDP4 = 'udp4',
-  UDP6 = 'udp6'
+  UDP6 = 'udp6',
 }
 export interface UdpServerOption {
   bindOptions: BindOptions;
@@ -35,7 +41,7 @@ export class UdpServer extends Server implements CustomTransportStrategy {
     this.server.on(LISTENING_EVENT, () => {
       const address = this.server.address();
       this.logger.log(
-        `UDP Server listening on http://${address.address}:${address.port}`
+        `UDP Server listening on http://${address.address}:${address.port}`,
       );
     });
     this.server.on(INCOMING_MESSAGE_EVENT, (msg: Buffer, rinfo: RemoteInfo) => {
@@ -47,6 +53,14 @@ export class UdpServer extends Server implements CustomTransportStrategy {
       }
     });
     callback();
+  }
+
+  public sendx(msg: string, ctx: RemoteInfo) {
+    this.server.send(msg, 0, ctx.size, ctx.port, ctx.address, function (err) {
+      if (err) {
+        console.log('Error sending response to ', ctx.address);
+      }
+    });
   }
 
   public transformBufferData(data: Buffer) {
