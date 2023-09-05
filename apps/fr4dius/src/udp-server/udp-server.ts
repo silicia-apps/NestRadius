@@ -13,7 +13,6 @@ import {
 import { Server, CustomTransportStrategy } from '@nestjs/microservices';
 
 export class UdpContext {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
   constructor(
     private msg: Buffer,
     private rinfo: RemoteInfo,
@@ -44,28 +43,35 @@ export class UdpServer extends Server implements CustomTransportStrategy {
         `UDP Server listening on http://${address.address}:${address.port}`,
       );
     });
-    this.server.on(INCOMING_MESSAGE_EVENT, (msg: Buffer, rinfo: RemoteInfo) => {
-      const handler = this.getHandlerByPattern(INCOMING_MESSAGE_EVENT);
-      if (handler !== null) {
-        const data = this.transformBufferData(msg);
-        const context = new UdpContext(data, rinfo);
-        handler(data, context);
-      }
-    });
+    this.server.on(
+      INCOMING_MESSAGE_EVENT,
+      async (msg: Buffer, rinfo: RemoteInfo) => {
+        const handler = this.getHandlerByPattern(INCOMING_MESSAGE_EVENT);
+        if (handler !== null) {
+          const response = await handler(msg, rinfo);
+          this.server.send(
+            response,
+            0,
+            response.length,
+            rinfo.port,
+            rinfo.address,
+            function (err) {
+              if (err) {
+                this.logger.error(
+                  'Error sending response to ' +
+                    rinfo.address +
+                    ' on port ' +
+                    rinfo.port,
+                );
+              }
+            },
+          );
+        }
+      },
+    );
     callback();
   }
 
-  public sendx(msg: string, ctx: RemoteInfo) {
-    this.server.send(msg, 0, ctx.size, ctx.port, ctx.address, function (err) {
-      if (err) {
-        console.log('Error sending response to ', ctx.address);
-      }
-    });
-  }
-
-  public transformBufferData(data: Buffer) {
-    return JSON.parse(JSON.stringify(data.toString('utf8').split('\\n')));
-  }
   public async close() {
     this.server.close();
     this.logger.error(`UDP Server close !`);

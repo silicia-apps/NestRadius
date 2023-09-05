@@ -10,7 +10,7 @@ async function bootstrap() {
       strategy: new UdpServer({
         bindOptions: {
           address: '0.0.0.0',
-          port: 8112,
+          port: 1812,
         },
         socketOptions: {
           type: SocketType.UDP4,

@@ -1,8 +1,32 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/fr4dius/src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/fr4dius/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/fr4dius",
+  "projects": {
+    "fr4dius": {
+      "type": "application",
+      "root": "apps/fr4dius",
+      "entryFile": "main",
+      "sourceRoot": "apps/fr4dius/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/fr4dius/tsconfig.app.json"
+      }
+    },
+    "rml-uisp": {
+      "type": "application",
+      "root": "apps/rml-uisp",
+      "entryFile": "main",
+      "sourceRoot": "apps/rml-uisp/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/rml-uisp/tsconfig.app.json"
+      }
+    }
   }
 }
