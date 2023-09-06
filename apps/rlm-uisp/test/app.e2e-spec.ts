@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { RmlUispModule } from './../src/rml-uisp.module';
+import { RmlUispModule } from './../src/rlm-uisp.module';
 
 describe('RmlUispController (e2e)', () => {
   let app: INestApplication;

@@ -1,0 +1,77 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "build": {
+      "name": "build",
+      "command": "npm run build",
+      "runAtStart": false
+    },
+    "format": {
+      "name": "format",
+      "command": "npm run format",
+      "runAtStart": false
+    },
+    "start": {
+      "name": "start",
+      "command": "npm run start",
+      "runAtStart": true
+    },
+    "start:dev": {
+      "name": "start:dev",
+      "command": "npm run start:dev",
+      "runAtStart": false
+    },
+    "start:debug": {
+      "name": "start:debug",
+      "command": "npm run start:debug",
+      "runAtStart": false
+    },
+    "start:prod": {
+      "name": "start:prod",
+      "command": "npm run start:prod",
+      "runAtStart": false
+    },
+    "lint": {
+      "name": "lint",
+      "command": "npm run lint",
+      "runAtStart": false
+    },
+    "test": {
+      "name": "test",
+      "command": "npm run test",
+      "runAtStart": false
+    },
+    "test:watch": {
+      "name": "test:watch",
+      "command": "npm run test:watch",
+      "runAtStart": false
+    },
+    "test:cov": {
+      "name": "test:cov",
+      "command": "npm run test:cov",
+      "runAtStart": false
+    },
+    "test:debug": {
+      "name": "test:debug",
+      "command": "npm run test:debug",
+      "runAtStart": false
+    },
+    "test:e2e": {
+      "name": "test:e2e",
+      "command": "npm run test:e2e",
+      "runAtStart": false
+    },
+    "nest start rlm-uisp": {
+      "name": "nest start rlm-uisp",
+      "command": "nest start rlm-uisp"
+    }
+  }
+}

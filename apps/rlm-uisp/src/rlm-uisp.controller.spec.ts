@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RmlUispController } from './rml-uisp.controller';
-import { RmlUispService } from './rml-uisp.service';
+import { RmlUispController } from './rlm-uisp.controller';
+import { RmlUispService } from './rlm-uisp.service';
 
 describe('RmlUispController', () => {
   let rmlUispController: RmlUispController;

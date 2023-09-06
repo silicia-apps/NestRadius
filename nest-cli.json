@@ -19,13 +19,13 @@
         "tsConfigPath": "apps/fr4dius/tsconfig.app.json"
       }
     },
-    "rml-uisp": {
+    "rlm-uisp": {
       "type": "application",
-      "root": "apps/rml-uisp",
+      "root": "apps/rlm-uisp",
       "entryFile": "main",
-      "sourceRoot": "apps/rml-uisp/src",
+      "sourceRoot": "apps/rlm-uisp/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/rml-uisp/tsconfig.app.json"
+        "tsConfigPath": "apps/rlm-uisp/tsconfig.app.json"
       }
     }
   }

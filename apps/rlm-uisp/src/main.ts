@@ -1,17 +1,18 @@
 import { NestFactory } from '@nestjs/core';
-import { RmlUispModule } from './rml-uisp.module';
+import { RlmUispModule } from './rlm-uisp.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    RmlUispModule,
+    RlmUispModule,
     {
       transport: Transport.NATS,
       options: {
-        servers: ['nats://localhost:4222'],
+        servers: ['nats://185.13.223.52:4222'],
       },
     },
   );
+  app.listen();
 }
 bootstrap();
