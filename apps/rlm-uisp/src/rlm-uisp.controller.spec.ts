@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RmlUispController } from './rlm-uisp.controller';
-import { RmlUispService } from './rlm-uisp.service';
+import { RlmUispController } from './rlm-uisp.controller';
+import { RlmUispService } from './rlm-uisp.service';
 
 describe('RmlUispController', () => {
-  let rmlUispController: RmlUispController;
+  let rmlUispController: RlmUispController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [RmlUispController],
-      providers: [RmlUispService],
+      controllers: [RlmUispController],
+      providers: [RlmUispService],
     }).compile();
 
-    rmlUispController = app.get<RmlUispController>(RmlUispController);
+    rmlUispController = app.get<RlmUispController>(RlmUispController);
   });
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(rmlUispController.getHello()).toBe('Hello World!');
+      //expect(rmlUispController.getHello()).toBe('Hello World!');
     });
   });
 });

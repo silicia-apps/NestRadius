@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload, NatsContext } from '@nestjs/microservices';
+import { MessagePattern, Payload, NatsContext, Ctx } from '@nestjs/microservices';
 import { RlmUispService } from './rlm-uisp.service';
 // import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ export class RlmUispController {
 
   @MessagePattern({ cmd: 'login' })
   login(@Payload() data: number[], @Ctx() context: NatsContext): boolean {
-    console.log('Test user ' + username + ' password ' + password);
+    console.log('Test user ' + data + ' password ' + context);
     return true;
   }
 }
