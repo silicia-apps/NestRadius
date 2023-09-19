@@ -1,31 +1,31 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/fr4dius/src",
+  "sourceRoot": "apps/gateway/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/fr4dius/tsconfig.app.json"
+    "tsConfigPath": "apps/gateway/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/fr4dius",
+  "root": "apps/gateway",
   "projects": {
-    "fr4dius": {
+    "gateway": {
       "type": "application",
-      "root": "apps/fr4dius",
+      "root": "apps/gateway",
       "entryFile": "main",
-      "sourceRoot": "apps/fr4dius/src",
+      "sourceRoot": "apps/gateway/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/fr4dius/tsconfig.app.json"
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
       }
     },
-    "rlm-uisp": {
+    "uisp-module": {
       "type": "application",
-      "root": "apps/rlm-uisp",
+      "root": "apps/uisp-module",
       "entryFile": "main",
-      "sourceRoot": "apps/rlm-uisp/src",
+      "sourceRoot": "apps/uisp-module/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/rlm-uisp/tsconfig.app.json"
+        "tsConfigPath": "apps/uisp-module/tsconfig.app.json"
       }
     }
   }

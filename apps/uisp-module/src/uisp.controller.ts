@@ -5,12 +5,12 @@ import {
   Ctx,
   RedisContext,
 } from '@nestjs/microservices';
-import { RlmUispService } from './rlm-uisp.service';
+import { UispService } from './uisp.service';
 // import { Observable } from 'rxjs';
 
 @Controller()
-export class RlmUispController {
-  constructor(private readonly rlmUispService: RlmUispService) {}
+export class UispController {
+  constructor(private readonly uispService: UispService) {}
 
   @MessagePattern({ cmd: 'login' })
   login(

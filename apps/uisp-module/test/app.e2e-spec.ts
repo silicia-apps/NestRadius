@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { RmlUispModule } from './../src/rlm-uisp.module';
+import { UispModule } from '../src/uisp.module';
 
-describe('RmlUispController (e2e)', () => {
+describe('UispController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [RmlUispModule],
+      imports: [UispModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
