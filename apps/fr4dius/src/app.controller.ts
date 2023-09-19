@@ -1,27 +1,32 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Inject, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { IncomingMessage, UDPGateWay } from './udp-server';
-import { Ctx, Payload, EventPattern, Client, Transport, ClientProxy } from '@nestjs/microservices';
+import { Payload, ClientProxy } from '@nestjs/microservices';
 import * as radius from 'radius';
-import { RemoteInfo } from 'dgram';
 
 @UDPGateWay()
 @Controller()
 export class AppController {
-  @Client({
-    transport: Transport.NATS,
-    options: {
-      url: 'nats://185.13.223.52:4222',
-    },
-  })
-  client: ClientProxy;
   private secret = '1234';
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    @Inject('AUTH_SERVICE') private client: ClientProxy,
+  ) {}
+
+  @Get()
+  auth(@Req() request: Request): string {
+    this.client.send<string>('auth', {
+      username: 'username',
+      password: 'password',
+    });
+    console.log('start get');
+    return 'This action returns all cats';
+  }
 
   @IncomingMessage()
   public async message(
     @Payload() data,
-    @Ctx() rinfo: RemoteInfo,
+    //@Ctx() rinfo: RemoteInfo,
   ): Promise<any> {
     const packet = radius.decode({ packet: data, secret: this.secret });
     console.log(JSON.stringify(packet));
@@ -32,8 +37,12 @@ export class AppController {
 
     const username = packet.attributes['User-Name'];
     const password = packet.attributes['User-Password'];
-    this.client.send('auth', { username: username, password: password, rinfo: rinfo });
-    const code = 'Access-Reject';
+
+    const pattern = { cmd: 'login' };
+    const code = this.client.send<string>(pattern, {
+      username: username,
+      password: password,
+    });
     return radius.encode_response({
       packet: packet,
       code: code,
