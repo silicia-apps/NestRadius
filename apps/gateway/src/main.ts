@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions } from '@nestjs/microservices';
 import { SocketType, UdpServer } from './udp-server';
 import { AppModule } from './app.module';
+import { VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,10 @@ async function bootstrap() {
     }),
   });
   app.startAllMicroservices();
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: 'v',
+  });
   await app.listen(3000);
 }
 bootstrap();

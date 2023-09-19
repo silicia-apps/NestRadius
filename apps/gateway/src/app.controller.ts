@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Req } from '@nestjs/common';
+import { Controller, Get, Inject, Req, Version } from '@nestjs/common';
 import { AppService } from './app.service';
 import { IncomingMessage, UDPGateWay } from './udp-server';
 import { Payload, ClientProxy } from '@nestjs/microservices';
@@ -14,13 +14,14 @@ export class AppController {
   ) {}
 
   @Get()
+  @Version('1')
   auth(@Req() request: Request): string {
-   this.client.send<string>('login', {
+    this.client.emit<string>('login', {
       username: 'username',
       password: 'password',
     });
     console.log('start get');
-    return 'This action returns all cats';
+    return 'This actio returns all cats';
   }
 
   @IncomingMessage()
@@ -38,7 +39,7 @@ export class AppController {
     const username = packet.attributes['User-Name'];
     const password = packet.attributes['User-Password'];
 
-    const pattern = { cmd: 'login' };
+    const pattern = 'login';
     const code = this.client.send<string>(pattern, {
       username: username,
       password: password,

@@ -4,6 +4,7 @@ import {
   Payload,
   Ctx,
   RedisContext,
+  EventPattern,
 } from '@nestjs/microservices';
 import { UispService } from './uisp.service';
 // import { Observable } from 'rxjs';
@@ -12,7 +13,7 @@ import { UispService } from './uisp.service';
 export class UispController {
   constructor(private readonly uispService: UispService) {}
 
-  @MessagePattern('login')
+  @EventPattern('login')
   async login(
     @Payload() data: { username: string; password: string },
     @Ctx() context: RedisContext,
