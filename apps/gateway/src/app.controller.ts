@@ -15,7 +15,7 @@ export class AppController {
 
   @Get()
   auth(@Req() request: Request): string {
-    this.client.send<string>('auth', {
+   this.client.send<string>('login', {
       username: 'username',
       password: 'password',
     });

@@ -5,6 +5,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
+    //CacheModule.register(),
     ClientsModule.register([
       {
         name: 'AUTH_SERVICE',

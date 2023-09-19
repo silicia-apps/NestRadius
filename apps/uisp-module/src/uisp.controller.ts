@@ -12,11 +12,11 @@ import { UispService } from './uisp.service';
 export class UispController {
   constructor(private readonly uispService: UispService) {}
 
-  @MessagePattern({ cmd: 'login' })
-  login(
+  @MessagePattern('login')
+  async login(
     @Payload() data: { username: string; password: string },
     @Ctx() context: RedisContext,
-  ): string {
+  ): Promise<string> {
     console.log(
       'Test user ' +
         data.username +
