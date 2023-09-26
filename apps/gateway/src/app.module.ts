@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ApiModule } from './api/api.module';
+import { NasController } from './nas/nas.controller';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { ApiModule } from './api/api.module';
     ]),
     ApiModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, NasController],
   providers: [AppService],
 })
 export class AppModule {}

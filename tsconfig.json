@@ -17,6 +17,13 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "paths": {
+      "@silicia/nest-appwrite": [
+        "libs/nest-appwrite/src"
+      ],
+      "@silicia/nest-appwrite/*": [
+        "libs/nest-appwrite/src/*"
+      ]
+    }
   }
 }

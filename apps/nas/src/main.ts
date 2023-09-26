@@ -20,6 +20,6 @@ async function bootstrap() {
   logger.verbose(
     `Listen to ${config.get('redis_host')}:${config.get('redis_port')}`,
   );
-  app.listen();
+  app.startAllMicroservices();
 }
 bootstrap();

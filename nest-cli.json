@@ -36,6 +36,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/nas/tsconfig.app.json"
       }
+    },
+    "nest-appwrite": {
+      "type": "library",
+      "root": "libs/nest-appwrite",
+      "entryFile": "index",
+      "sourceRoot": "libs/nest-appwrite/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/nest-appwrite/tsconfig.lib.json"
+      }
     }
   }
 }

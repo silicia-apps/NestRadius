@@ -31,6 +31,7 @@
     "cache-manager": "^5.2.3",
     "ioredis": "^5.3.2",
     "nats": "^2.16.0",
+    "node-appwrite": "^11.0.0",
     "radius": "^1.1.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
@@ -75,7 +76,11 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@silicia/nest-appwrite(|/.*)$": "<rootDir>/libs/nest-appwrite/src/$1"
+    }
   }
 }
