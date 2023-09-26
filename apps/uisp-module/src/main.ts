@@ -5,7 +5,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const logger = new Logger('rlm-uisp:bootstrap');
-  const server = '185.13.223.52';
+  const server = '0.0.0.0';
   const port = 9000;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -13,7 +13,7 @@ async function bootstrap() {
     {
       transport: Transport.REDIS,
       options: {
-        password: 'F2WKqQDnvGwppP5KnmaQIMYu',
+        password: '',
         host: server,
         port: port,
       },
