@@ -1,20 +1,20 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as sdk from 'node-appwrite';
+import { Client, Databases, Query } from 'node-appwrite';
 
 @Injectable()
 export class NestAppwriteService {
-  private client = new sdk.Client();
-  private database = new sdk.Databases(this.client);
+  private client: Client;
+  private database: Databases;
   private logger = new Logger('SiliciaAppwriteService');
 
   constructor(private configService: ConfigService) {
     this.logger.log('connect to apprite');
-    this.client
+    this.client = new Client()
       .setEndpoint(configService.get('appwrite_endpoint'))
-      .setProject(configService.get('apprite_project'))
-      .setKey(configService.get('apprite_key'))
-      .setSelfSigned(false);
+      .setProject(configService.get('appwrite_project'))
+      .setKey(configService.get('appwrite_key'));
+    this.database = new Databases(this.client);
   }
 
   async getDocuments(
@@ -25,7 +25,7 @@ export class NestAppwriteService {
     try {
       return await this.database.listDocuments(database, collection, query);
     } catch (e) {
-      this.logger.error(JSON.stringify(e));
+      this.logger.error(e);
     }
   }
 }

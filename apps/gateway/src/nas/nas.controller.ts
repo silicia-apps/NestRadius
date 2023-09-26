@@ -20,6 +20,5 @@ export class NasController {
   async reverseLookUp(@Query() params: any) {
     this.logger.log(`emit reverse lookup for nas with ip ${params.ip}`);
     this.client.emit<string>('nas:lookup', { ip: params.ip });
-    return 'IP= ' + params.ip;
   }
 }

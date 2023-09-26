@@ -14,6 +14,7 @@ export class ApiController {
 
   constructor(@Inject('AUTH_SERVICE') private client: ClientProxy) {}
 
+  @UseGuards(NasGuard)
   @Get('login')
   @Version('1')
   login(
