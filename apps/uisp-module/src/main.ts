@@ -2,24 +2,26 @@ import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import { UispModule } from './uisp.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const logger = new Logger('rlm-uisp:bootstrap');
-  const server = '0.0.0.0';
-  const port = 9000;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    UispModule,
-    {
-      transport: Transport.REDIS,
-      options: {
-        password: '',
-        host: server,
-        port: port,
-      },
+  const logger = new Logger('uisp-module:bootstrap');
+  const app = await NestFactory.create(UispModule);
+  const config = app.get(ConfigService);
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.REDIS,
+    options: {
+      password: config.get('redis_password'),
+      host: config.get('redis_host'),
+      port: config.get('redis_port'),
     },
+  });
+  logger.verbose(
+    'Listen to ' +
+      config.get('redis_host') +
+      ' port ' +
+      config.get('redis_port'),
   );
-  logger.verbose('Listen to ' + server + ' port ' + port);
-  app.listen();
+  app.startAllMicroservices();
 }
 bootstrap();
