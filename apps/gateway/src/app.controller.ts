@@ -1,28 +1,21 @@
-import { Controller, Get, Inject, Req, Version } from '@nestjs/common';
+import { Controller, Inject, Logger } from '@nestjs/common';
+
 import { AppService } from './app.service';
 import { IncomingMessage, UDPGateWay } from './udp-server';
 import { Payload, ClientProxy } from '@nestjs/microservices';
 import * as radius from 'radius';
+import { ConfigService } from '@nestjs/config';
 
 @UDPGateWay()
-@Controller()
+@Controller('auth')
 export class AppController {
-  private secret = '1234';
+  private logger = new Logger(AppController.name);
+  private secret = this.configService.get('radius_secret');
   constructor(
     private readonly appService: AppService,
+    private configService: ConfigService,
     @Inject('AUTH_SERVICE') private client: ClientProxy,
   ) {}
-
-  @Get()
-  @Version('1')
-  auth(@Req() request: Request): string {
-    this.client.emit<string>('login', {
-      username: 'username',
-      password: 'password',
-    });
-    console.log('start get');
-    return 'This actio returns all cats';
-  }
 
   @IncomingMessage()
   public async message(
@@ -32,7 +25,7 @@ export class AppController {
     const packet = radius.decode({ packet: data, secret: this.secret });
     console.log(JSON.stringify(packet));
     if (packet.code != 'Access-Request') {
-      console.log('unknown packet type: ', packet.code);
+      this.logger.debug('unknown packet type: ', packet.code);
       return;
     }
 

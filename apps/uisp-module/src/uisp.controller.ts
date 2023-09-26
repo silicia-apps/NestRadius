@@ -1,6 +1,5 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import {
-  MessagePattern,
   Payload,
   Ctx,
   RedisContext,
@@ -11,6 +10,7 @@ import { UispService } from './uisp.service';
 
 @Controller()
 export class UispController {
+  private logger = new Logger(UispController.name);
   constructor(private readonly uispService: UispService) {}
 
   @EventPattern('login')
@@ -18,7 +18,7 @@ export class UispController {
     @Payload() data: { username: string; password: string },
     @Ctx() context: RedisContext,
   ): Promise<string> {
-    console.log(
+    this.logger.debug(
       'Test user ' +
         data.username +
         ' password ' +

@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/uisp-module/tsconfig.app.json"
       }
+    },
+    "nas": {
+      "type": "application",
+      "root": "apps/nas",
+      "entryFile": "main",
+      "sourceRoot": "apps/nas/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/nas/tsconfig.app.json"
+      }
     }
   }
 }

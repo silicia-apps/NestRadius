@@ -27,7 +27,7 @@ export interface UdpServerOption {
   socketOptions: SocketOptions;
 }
 export class UdpServer extends Server implements CustomTransportStrategy {
-  protected logger = new Logger('UdpServer');
+  protected logger = new Logger(UdpServer.name);
   public server: Socket;
 
   constructor(private readonly options: UdpServerOption) {
