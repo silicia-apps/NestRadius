@@ -19,15 +19,15 @@ export enum SocketType {
   UDP4 = 'udp4',
   UDP6 = 'udp6',
 }
-export interface UdpServerOption {
+export interface RadiusServerOption {
   bindOptions: BindOptions;
   socketOptions: SocketOptions;
 }
-export class UdpServer extends Server implements CustomTransportStrategy {
-  protected logger = new Logger(UdpServer.name);
+export class RadiusServer extends Server implements CustomTransportStrategy {
+  protected logger = new Logger(RadiusServer.name);
   public server: Socket;
 
-  constructor(private readonly options: UdpServerOption) {
+  constructor(private readonly options: RadiusServerOption) {
     super();
   }
 

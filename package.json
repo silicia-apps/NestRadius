@@ -80,7 +80,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@silicia/nest-appwrite(|/.*)$": "<rootDir>/libs/nest-appwrite/src/$1"
+      "^@silicia/nest-appwrite(|/.*)$": "<rootDir>/libs/nest-appwrite/src/$1",
+      "^@silicia/core(|/.*)$": "<rootDir>/libs/core/src/$1"
     }
   }
 }

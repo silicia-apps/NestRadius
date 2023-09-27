@@ -10,13 +10,16 @@ import { RadiusGuard } from './radius.guard';
 @UDPGateWay()
 @Controller('auth')
 export class RadiusController {
-  private logger = new Logger(RadiusController.name);
-  private secret = this.configService.get('radius_secret');
+  private logger: Logger;
+  private secret: string;
+
   constructor(
     private readonly radiusService: RadiusService,
-    private configService: ConfigService,
-    @Inject('AUTH_SERVICE') private client: ClientProxy,
-  ) {}
+    
+  ) {
+    this.logger = new Logger(RadiusController.name);
+    this.logger.debug('Start Radius Controller');
+  }
 
   @IncomingMessage()
   @UseGuards(RadiusGuard)

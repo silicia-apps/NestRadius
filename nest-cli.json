@@ -45,6 +45,33 @@
       "compilerOptions": {
         "tsConfigPath": "libs/nest-appwrite/tsconfig.lib.json"
       }
+    },
+    "radius": {
+      "type": "application",
+      "root": "apps/radius",
+      "entryFile": "main",
+      "sourceRoot": "apps/radius/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/radius/tsconfig.app.json"
+      }
+    },
+    "ldap": {
+      "type": "application",
+      "root": "apps/ldap",
+      "entryFile": "main",
+      "sourceRoot": "apps/ldap/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/ldap/tsconfig.app.json"
+      }
+    },
+    "core": {
+      "type": "library",
+      "root": "libs/core",
+      "entryFile": "index",
+      "sourceRoot": "libs/core/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/core/tsconfig.lib.json"
+      }
     }
   }
 }

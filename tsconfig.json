@@ -23,6 +23,12 @@
       ],
       "@silicia/nest-appwrite/*": [
         "libs/nest-appwrite/src/*"
+      ],
+      "@silicia/core": [
+        "libs/core/src"
+      ],
+      "@silicia/core/*": [
+        "libs/core/src/*"
       ]
     }
   }
