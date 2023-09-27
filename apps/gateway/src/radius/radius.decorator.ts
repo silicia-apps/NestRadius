@@ -2,7 +2,7 @@ import {
   INCOMING_MESSAGE_EVENT,
   UDP_GATEWAY_METADATA,
   UDP_METHOD_METADATA,
-} from './udp-server.constants';
+} from './radius.constants';
 import { Controller, Injectable } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 

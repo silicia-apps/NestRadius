@@ -6,10 +6,11 @@ import {
 } from '@nestjs/platform-fastify';
 import { SocketType, UdpServer } from './udp-server';
 import { AppModule } from './app.module';
-import { VersioningType } from '@nestjs/common';
+import { Logger, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
+  const logger: Logger = new Logger('nestradius');
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({ logger: false }),
@@ -31,6 +32,10 @@ async function bootstrap() {
     type: VersioningType.URI,
     prefix: 'v',
   });
-  await app.listen(config.get('api_port_bind'), config.get('api_address_bind'));
+  await app.listen(
+    config.get('api_port_bind'),
+    config.get('api_address_bind'),
+    () => logger.log('start'),
+  );
 }
 bootstrap();

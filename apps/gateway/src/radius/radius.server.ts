@@ -6,10 +6,7 @@ import {
   RemoteInfo,
 } from 'dgram';
 import { Logger } from '@nestjs/common';
-import {
-  INCOMING_MESSAGE_EVENT,
-  LISTENING_EVENT,
-} from './udp-server.constants';
+import { INCOMING_MESSAGE_EVENT, LISTENING_EVENT } from './radius.constants';
 import { Server, CustomTransportStrategy } from '@nestjs/microservices';
 
 export class UdpContext {
