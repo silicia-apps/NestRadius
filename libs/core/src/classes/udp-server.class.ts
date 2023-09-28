@@ -1,45 +1,42 @@
 import {
   createSocket,
-  BindOptions,
-  SocketOptions,
   Socket,
   RemoteInfo,
 } from 'dgram';
+
 import { Logger } from '@nestjs/common';
-import { INCOMING_MESSAGE_EVENT, LISTENING_EVENT } from './radius.constants';
+
+import { INCOMING_MESSAGE_EVENT, LISTENING_EVENT } from '../constants';
 import { Server, CustomTransportStrategy } from '@nestjs/microservices';
 
-export class UdpContext {
-  constructor(
-    private msg: Buffer,
-    private rinfo: RemoteInfo,
-  ) {}
-}
-export enum SocketType {
-  UDP4 = 'udp4',
-  UDP6 = 'udp6',
-}
-export interface RadiusServerOption {
-  bindOptions: BindOptions;
-  socketOptions: SocketOptions;
-}
-export class RadiusServer extends Server implements CustomTransportStrategy {
-  protected logger = new Logger(RadiusServer.name);
+import { UdpServerOption } from '../interfaces';
+
+export class UdpServer extends Server implements CustomTransportStrategy {
+  protected logger: Logger;
   public server: Socket;
 
-  constructor(private readonly options: RadiusServerOption) {
+  constructor(private readonly options: UdpServerOption) {
     super();
+    this.logger = new Logger(UdpServer.name);
+    this.logger.debug('Create UDP Server');
   }
 
   public async listen(callback: () => void) {
-    this.server = createSocket(this.options.socketOptions);
-    this.server.bind(this.options.bindOptions);
+    try {
+      this.logger.log('Starting Udp Server...');
+      this.server = createSocket(this.options.socketOptions);
+      this.server.bind(this.options.bindOptions);
+    } catch (error: unknown) {
+      this.logger.error('Error on start Server' + error);
+    }
+
     this.server.on(LISTENING_EVENT, () => {
       const address = this.server.address();
       this.logger.log(
         `UDP Server listening on http://${address.address}:${address.port}`,
       );
     });
+
     this.server.on(
       INCOMING_MESSAGE_EVENT,
       async (msg: Buffer, rinfo: RemoteInfo) => {
@@ -56,9 +53,9 @@ export class RadiusServer extends Server implements CustomTransportStrategy {
               if (err) {
                 this.logger.error(
                   'Error sending response to ' +
-                    rinfo.address +
-                    ' on port ' +
-                    rinfo.port,
+                  rinfo.address +
+                  ' on port ' +
+                  rinfo.port,
                 );
               }
             },

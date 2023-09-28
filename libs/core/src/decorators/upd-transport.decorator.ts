@@ -1,17 +1,15 @@
+import { Controller, Injectable } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
+
 import {
   INCOMING_MESSAGE_EVENT,
   UDP_GATEWAY_METADATA,
   UDP_METHOD_METADATA,
-} from './radius.constants';
-import { Controller, Injectable } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+} from '../constants';
+import { IncomingMessageMetadata } from '../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 declare let __decorate: Function;
-
-export interface IncomingMessageMetadata {
-  name?: string;
-}
 
 export function UDPGateWay() {
   // eslint-disable-next-line @typescript-eslint/ban-types

@@ -1,6 +1,8 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
+import * as radius from 'radius';
+
 @Injectable()
 export class RadiusService {
   private logger: Logger;
@@ -16,14 +18,11 @@ export class RadiusService {
 
 
     const pattern = 'login';
-    const code = this.client.send<string>(pattern, {
+    /*const code = this.client.send<string>(pattern, {
       username: username,
       password: password,
-    });
-    return radius.encode_response({
-      packet: packet,
-      code: code,
-      secret: this.secret,
-    });
+    });*/
+    return true;
+    
   }
 }

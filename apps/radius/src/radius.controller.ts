@@ -1,7 +1,7 @@
 import { Controller, Inject, Logger, UseGuards } from '@nestjs/common';
 
 import { RadiusService } from './radius.service';
-import { IncomingMessage, UDPGateWay } from './radius.decorator';
+import { IncomingMessage, UDPGateWay } from '@silicia/core';
 import { Payload, ClientProxy } from '@nestjs/microservices';
 import * as radius from 'radius';
 import { ConfigService } from '@nestjs/config';
