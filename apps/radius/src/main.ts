@@ -20,7 +20,7 @@ async function bootstrap() {
       },
     }),
   });
-  app.startAllMicroservices().then(() => this.logger.log('stop'));
+  app.startAllMicroservices();
 }
 bootstrap();
 

@@ -1,1 +1,1 @@
-export * from './core.service.spec';
+export * from './core.service';

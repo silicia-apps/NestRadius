@@ -2,10 +2,12 @@ import { Controller, Inject, Logger, UseGuards } from '@nestjs/common';
 
 import { RadiusService } from './radius.service';
 import { IncomingMessage, UDPGateWay } from '@silicia/core';
-import { Payload, ClientProxy } from '@nestjs/microservices';
+import { Payload, ClientProxy, Ctx } from '@nestjs/microservices';
 import * as radius from 'radius';
 import { ConfigService } from '@nestjs/config';
 import { RadiusGuard } from './radius.guard';
+import { RemoteInfo } from 'dgram';
+import { RadiusPipe } from './radius.pipe';
 
 @UDPGateWay()
 @Controller('auth')
@@ -15,7 +17,7 @@ export class RadiusController {
 
   constructor(
     private readonly radiusService: RadiusService,
-    
+
   ) {
     this.logger = new Logger(RadiusController.name);
     this.logger.debug('Start Radius Controller');
@@ -24,11 +26,11 @@ export class RadiusController {
   @IncomingMessage()
   @UseGuards(RadiusGuard)
   public async message(
-    @Payload() data: any,
-    //@Ctx() rinfo: RemoteInfo,
+    @Payload('packet', RadiusPipe) packet: any,
+    @Ctx() rinfo: RemoteInfo,
   ): Promise<any> {
-    const packet = radius.decode({ packet: data, secret: this.secret });
-    console.log(JSON.stringify(packet));
+    this.logger.verbose(`Receveid message from ${rinfo.address}:${rinfo.port}`);
+
     if (packet.code != 'Access-Request') {
       this.logger.debug('unknown packet type: ', packet.code);
       return;
