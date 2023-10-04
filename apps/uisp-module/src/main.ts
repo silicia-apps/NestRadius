@@ -17,7 +17,7 @@ async function bootstrap() {
     },
   });
   logger.verbose(
-    'Listen to ' +
+    'Connect to ' +
       config.get('redis_host') +
       ' port ' +
       config.get('redis_port'),
